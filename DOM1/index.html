@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="style.css">
+    <title>Todo App</title>
+  </head>
+  <body>
+    <div id = "main">
+      <input type="text" placeholder="Enter the Todo task" />
+      <button  id = "main_b"onclick="addTodo()">Add Todo</button>
+    </div>
+    <script>
+      let counter = 1;
+
+      function Delete(index) {
+        const el = document.querySelector(`#${index}`);
+        el.parentNode.removeChild(el);
+      }
+
+      function addTodo() {
+        const inputEl = document.querySelector("input");
+        const task = inputEl.value.trim();
+
+        if (task === "") {
+          alert("Please enter a task!");
+          return;
+        }
+        const taskId = `todo-${counter}`; // Create a unique ID for the task
+        const el = document.createElement("div");
+        el.setAttribute("id", taskId);
+
+        // Use template literals to create the task with the delete button
+        el.innerHTML = `
+          <span>${task}</span>
+          <button onclick="Delete('${taskId}')">Delete</button>
+        `;
+
+        document.body.appendChild(el);
+        inputEl.value = ""; // Clear the input field
+        counter += 1; // Increment the counter
+      }
+    </script>
+  </body>
+</html>
